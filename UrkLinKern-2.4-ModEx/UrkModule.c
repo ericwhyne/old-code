@@ -1,0 +1,99 @@
+/* Eric Whyne <public@erudite-aegis.org>
+ * License: GPL
+ * Eric Whyne 2003
+ *
+ ***** What this is:
+ * Kernel Module to set up a file in /proc 
+ *
+ ***** Why I wrote it:
+ * Educational
+ *
+ ***** License:
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2 of
+ * the License or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ *
+ */
+
+#define __KERNEL__
+
+#ifdef MODVERSIONS
+#include <linux/modversions.h>
+#endif
+
+#ifdef MODULE
+#include <linux/module.h>
+#endif
+
+#include <linux/time.h> 
+#include <linux/proc_fs.h>
+
+static int read_urk_proc(char *page, char **start, off_t offset, int count, int *eof, void * data)
+{
+  int len;
+
+  struct timeval tv;
+  do_gettimeofday(&tv);
+
+  len = sprintf(page,"tv_sec: %d\ntv_usec: %d\n", tv.tv_sec, tv.tv_usec);
+ 
+  return len;
+}
+
+
+
+/* This function is called when the module is loaded. */
+int init_module(void) 
+{
+  int err;
+  struct proc_dir_entry *urk_proc;
+ 
+  urk_proc = create_proc_read_entry("TimeFile", 0444, NULL, read_urk_proc, NULL);
+  if(urk_proc == NULL)
+    {
+      err = -ENOMEM;
+      return err;
+    }
+
+  urk_proc->owner = THIS_MODULE;
+
+  printk("<1>Loaded TimeFile Kernel Module: /proc/TimeFile now exists.\n");
+
+  return 0;
+}
+
+
+/* This function is called when the module is unloaded. */
+void cleanup_module(void)
+{
+  /*This next line of code is probably the most important line of code
+   * in the whole program! -Eric
+   * If you forget to remove the /proc entry and remove the module from the 
+   * kernel your system will segfault all new processes. My best guess is 
+   * because the /proc fs is left in an impossible condition.  Just don't do it.
+   */
+  remove_proc_entry("TimeFile", NULL);
+
+  printk("<1>Unloaded TimeFile Kernel Module: /proc/TimeFile should be gone.\n");
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+# Eric Whyne Jan 2004 
+# License: GPL
+# Description: Takes <blocksize> chunks of alphanumeric data from <input file>, 
+# shifts it <shift> places
+my ($shift, $blocksize, $inputfile);
+if(scalar @ARGV != 3){ die "\n\tUSAGE: $0 <input file> <blocksize> <shift>\n\n";}
+else{ $inputfile = @ARGV[0]; $blocksize = @ARGV[1]; $shift = @ARGV[2]; }
+my (@plaintext, @buffer, $i, $j);
+open(PLAINTEXT,$inputfile);
+while(!eof PLAINTEXT){push @plaintext, getc PLAINTEXT}
+close(PLAINTEXT);
+@plaintext = reverse grep(/[A-Za-z0-9]/, @plaintext);
+my $plength = scalar @plaintext;
+my $numofblocks = ($plength - ($plength % $blocksize)) / $blocksize;
+for($j=0;$j<= $numofblocks % $plength; $j++)
+{	for($i=0;$i<$blocksize;$i++){ push @buffer, pop @plaintext;}
+	for($i=	0;$i<$shift;$i++){ push @buffer, (@buffer[0]); shift @buffer; }
+	print @buffer;
+	splice @buffer, 0; }
+$blocksize = $plength % $blocksize;
+for($i=0;$i<$blocksize;$i++){ push @buffer, pop @plaintext;}
+for($i=	0;$i<$shift;$i++){ push @buffer, (@buffer[0]); shift @buffer; }
+print @buffer; print "\n";

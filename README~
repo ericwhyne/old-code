@@ -1,0 +1,111 @@
+Various programs and code snippets from when I owned the EruditeAegis domain.
+
+box.cpp 
+Example code for how to overload operators as member functions and as non member functions.
+
+UrkLinKern-2.4-ModEx 
+A simple example Linux Kernel module I threw together to learn and teach Linux 2.4 Kernel module writing.  
+
+five.c 
+Replicates the logic of, then brute forces a solution to a simple logic game.  
+
+gtkhello.c
+An example of creating a gtk instance. (If you need a simple dialog for
+a script use gdialog or dialog instead of writing your own instances.)
+
+BinarySearchTree.cpp
+An example of creating and using Binary Search Trees.
+
+atihelper.c
+GTK c code program shell for system control using a remote control such as the ATI all in wonder.
+
+procinfo.c
+Reads various data from the /proc filesystem in linux.  Handy ui and file rw snippets.
+
+grepip.sh
+Regex snippet to retrieve IPs from a log file.
+
+ipoctet.pl
+Perl code to break the list of IPs generated above into their octets.  Handy for use with the unix commands sort and uniq.
+
+StreamMp3Organize.pl
+A line of perl code to rename a bunch of mp3 files using their modification time.  This is handy for organizing streamed audio that overlaps.
+
+OperateOnWholeDirectory.sh
+Bash script snippet to do an operation on a whole directory of files.
+
+Memorylook.cpp
+Short Code to output contents your program's memory space, unformatted.
+(This program is just a few lines to show what can be accessed. If you need to
+analyze a program's memory space use gdb instead.)
+
+printshellcode.c
+Shellcode to print a phrase to the screen. Good shellcode exercise.
+
+simpleoverflow.c
+An example of an overflow exploit.
+
+captureflag
+Code written for information warfare games at Norwich University  
+
+srsa-cipher.cpp
+C++ code to perform small rsa encryption.  Nice example of how to use C++ unions.
+
+<br>
+
+<a href="code/affineCipher.txt">affineCipher.pl</a> <br>
+Perl Snippet to perform an affine cipher on a file of text.
+
+<br>
+
+<a href="code/affineCipher-BruteForce.txt">affineCipher-BruteForce.pl"</a> <br>
+Complimentary program to affineCipher.pl to crack affine ciphers.
+
+<br>
+
+<a href="code/blockRotateCipher.txt">blockRotateCipher.pl</a> <br>
+Perl Snippet to perform block rotation ciphers on a file of text.
+
+<br>
+
+<a href="code/blockRotateCipher-BruteForce.txt">blockRotateCipher-BruteForce.pl</a> <br>
+Complimentary program to blockRotateCipher.pl to crack block rotation ciphers.
+
+<br>
+
+<a href="code/columnarTranspositionCipher.txt">columnarTranspositionCipher.pl</a> <br>
+Perl Snippet to perform columnar transposition ciphers.
+
+<br>
+
+<a href="code/letterFrequencyCount.txt">letterFrequencyCount.pl</a> <br>
+Perl Snippet to count letter frequencies in a text file.
+
+<br>
+
+
+
+<br>
+<br>
+
+    </td>
+  </tr>
+</table>
+
+<!-- CONTENT ENDS HERE -->
+
+</TD>
+	</TR>
+	<TR>
+		<TD COLSPAN=10>
+			<IMG SRC="images/bottom_spacer.gif" WIDTH=700 HEIGHT=26 ALT=""></TD>
+	</TR>
+	<TR>
+		<TD COLSPAN=10>
+			<IMG SRC="images/footer.gif" WIDTH=700 HEIGHT=24 ALT=""></TD>
+	</TR>
+</TABLE>
+<!-- End ImageReady Slices -->
+
+</BODY>
+</HTML>

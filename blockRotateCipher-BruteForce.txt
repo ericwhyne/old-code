@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+# Eric Whyne Jan 2004
+# License: GPL
+# Description: Complimentary program to rotatecrypto-dynamic.pl
+my ($blocksize, $shift, $inputfile, $maxblocksize, @cmd);
+if(scalar @ARGV != 2){ die "\n\tUSAGE: $0 <input file> <max block size>\n\n\tExample: $0 ciphered.txt 6 | grep -i the\n\n";}
+else{ $inputfile = @ARGV[0]; $maxblocksize = @ARGV[1];}
+
+for($blocksize = 1; $blocksize <= $maxblocksize; $blocksize++)
+{
+	for($shift = 1; $shift < $blocksize; $shift++)
+	{
+		print "BS $blocksize SH $shift -";
+		@cmd = ("./rotatecrypto-dynamic.pl", $inputfile, $blocksize, $shift);
+		system(@cmd) == 0 or die "Could not find my other half: rotatecrypto-dynamic.pl";
+	}
+}

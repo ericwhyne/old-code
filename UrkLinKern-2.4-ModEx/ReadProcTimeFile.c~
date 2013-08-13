@@ -1,0 +1,125 @@
+/* Eric Whyne
+ * GPL Copyright (C) by Eric Whyne 2003
+ *
+ ***** What this is:
+ * This program is a quick program to grab some information from 
+ * the /proc filesystem found on most unix machines.
+ * It demonstrates a primitive way to handle arguments and how to 
+ * selectively get lines from text files, among 
+ * other potentially useful things...
+ *
+ ***** Why I wrote it:
+ * This program is complimentary to the example module code 
+ * that it is distributed with. RTFM README
+ *
+ ***** License:
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2 of
+ * the License or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+ * USA
+ *
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define FALSE 0
+#define TRUE 1
+
+void useage(char progname[]);
+
+int main (int argc, char *argv[])
+{
+	FILE *InfoFile;	
+	char *FileName;
+	char buffer;
+	int used = FALSE;
+ 
+	FileName = "/proc/TimeFile";
+
+	if(FileName == NULL)
+	{
+		printf("Memmory Allocation Error.\n");
+		return 1;
+	}
+
+	if(argv[1] == NULL)
+	{
+		useage(argv[0]);
+		return 1;
+	}
+
+	if(argv[1][0] == 'u' || argv[1][1] == 'u')
+	{
+		if ((InfoFile = fopen(FileName, "r")) != NULL )
+		{
+			int linecount = 1;
+			while( (buffer = fgetc(InfoFile)) != EOF)
+			{
+				if(linecount == 2)
+					printf("%c", buffer);
+				if(buffer == '\n') linecount++;
+			}
+		
+			fclose(InfoFile);
+		}
+		else
+		{
+		printf("Could not read system information.\n
+			Reason: Can not find proc file.\n");
+		return 1;
+		}
+		used = TRUE;
+	}
+	if(argv[1][0] == 'a' || argv[1][1] == 'a')
+	{
+	  if ((InfoFile = fopen(FileName, "r")) != NULL )
+		{
+			int linecount = 1;
+			while( (buffer = fgetc(InfoFile)) != EOF)
+			{
+				if(linecount == 1)
+					printf("%c", buffer);
+				if(buffer == '\n') linecount++;	
+       			}
+		
+			fclose(InfoFile);
+		}
+		else
+		{
+		printf("Could not read system information.\n
+			Reason: Can not find proc file.\n");
+		return 1;
+		}
+		used = TRUE;
+	}
+	if(used == FALSE)
+	{	
+		useage(argv[0]);
+		return 1;
+	}
+
+	printf("\n");
+	
+	return 0;
+}
+
+void useage(char progname[])
+{
+printf("\nOutputs information from /proc/TimeFile.\n   Useage: %s <options>\n Options:\n  
+	s     Display the kernel tv_sec information.\n  
+	u     Display the kernel tv_usec information.\n\n", progname);
+};
+
+
+

@@ -1,0 +1,36 @@
+Eric Whyne (c) 2003
+http://www.eruditeaegis.net/
+
+Introduction:
+
+This program creates a kernel module that displays the system time
+variables tv_usec and tv_sec in a /proc file called /proc/TimeFile
+
+The intention of the program was to create a clearly understandible
+example of a kernel module that can access kernel variables and
+create readable proc files. The source is sparsly commented as it 
+is expected that a user will be using more resources to create
+their kernel module than this program alone.
+
+This code was created for and tested with the linux kernel version 
+2.4.3 and gcc version 2.95.4.
+
+This is free software and is released under the GNU GPL; see the
+file COPYING for details.
+
+
+Quick Start:
+
+Typing 'make' in this directory will compile the source into
+the loadable module which will have a .o extension.  
+
+'make load' will load the module.  This must be done as root.
+
+'make unload' will unload the module.  This must be done as root.
+
+'make clean' will simply delete the compiled module.
+
+After the module is loaded there will be a file called /proc/TimeFile
+which will contain information described above.  When the module
+is unloaded this file is destroyed.  It doesn't get any more simple
+than that.
